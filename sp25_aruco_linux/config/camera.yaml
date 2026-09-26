@@ -1,0 +1,20 @@
+%YAML:1.0
+---
+camera:
+   width: 1440
+   height: 1080
+   exposure_auto: 0
+   exposure_time_us: 10000.0
+   gain_db: 9.0
+intrinsic:
+   fx: 1773.539686
+   fy: 1774.272085
+   cx: 706.740881
+   cy: 547.274422
+distortion:
+   k1: -0.072105571
+   k2: 0.099650345
+   p1: 0.000675799
+   p2: 0.000037105
+   k3: 0
+marker_size_m: 0.05

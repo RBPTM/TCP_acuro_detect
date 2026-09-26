@@ -1,0 +1,4 @@
+/home/tcp/sp25_aruco_linux/build/CMakeFiles/sp25_aruco.dir
+/home/tcp/sp25_aruco_linux/build/CMakeFiles/tune_exposure.dir
+/home/tcp/sp25_aruco_linux/build/CMakeFiles/edit_cache.dir
+/home/tcp/sp25_aruco_linux/build/CMakeFiles/rebuild_cache.dir
