@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <set>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -19,6 +20,28 @@ int main() {
     RobustArucoDetector detector;
     MarkerSolver solver;
 
+    // ---- 从 yaml 读合法 ID 白名单 ----
+    std::set<int> valid_ids;
+    {
+        cv::FileStorage fs("config/aruco.yaml", cv::FileStorage::READ);
+        if (fs.isOpened()) {
+            cv::FileNode ids = fs["valid_ids"];
+            if (!ids.empty()) {
+                for (auto it = ids.begin(); it != ids.end(); ++it) {
+                    valid_ids.insert((int)*it);
+                }
+            }
+        }
+        fs.release();
+    }
+    if (!valid_ids.empty()) {
+        std::cout << "[Main] Whitelist: ";
+        for (int id : valid_ids) std::cout << id << " ";
+        std::cout << "\n";
+    } else {
+        std::cout << "[Main] No whitelist, accepting all IDs\n";
+    }
+
     cv::namedWindow("SP25 ArUco", cv::WINDOW_NORMAL);
     std::cout << std::fixed << std::setprecision(3);
 
@@ -32,6 +55,11 @@ int main() {
         bool printed = false;
 
         for (const auto& d : detections) {
+            // ---- 白名单过滤 ----
+            if (!valid_ids.empty() && valid_ids.find(d.id) == valid_ids.end()) {
+                continue;
+            }
+
             // 画框
             std::vector<cv::Point> pts;
             pts.reserve(4);
